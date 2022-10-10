@@ -16,14 +16,14 @@ Force nginx to reload the configurations
 ```sh
 docker-compose exec proxy nginx -s reload
 ```
-# cron job 1
+### cron job 1
 ```sh
 sudo crontab -e
 0 5  * * *  docker-compose -f /<path>/docker-compose.yaml up certbot 
 10 5 * * *  docker-compose -f /<path>/docker-compose.yaml exec proxy nginx -s reload
 ```
 
-# cron job 2
+### cron job 2
 ```sh
 sudo crontab -e
 0 23 * * * docker run --rm -it --name certbot -v "/<path>/nginx/letsencrypt:/etc/letsencrypt" -v "/<path>/nginx/certbot:/var/www/certbot" certbot/certbot certonly --webroot --agree-tos --register-unsafely-without-email -w /var/www/certbot -d <domain>
