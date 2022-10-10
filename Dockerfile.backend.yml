@@ -1,0 +1,19 @@
+FROM python:3.8-slim-buster
+
+# create application directory
+RUN mkdir /app
+
+# set working directory
+WORKDIR /app
+
+# copy application
+ADD backend/* /app/
+
+# install requirements
+RUN pip install -r requirements.txt
+
+# expose port
+EXPOSE 5000
+
+# run application
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]

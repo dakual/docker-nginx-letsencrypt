@@ -1,0 +1,36 @@
+version: "3.1"
+services:
+  backend:
+    container_name: backend
+    image: backend
+    build:
+      context: .
+      dockerfile: Dockerfile.backend.yml
+  frontend:
+    container_name: frontend
+    image: frontend
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend.yml
+    depends_on:
+      - backend
+  proxy:
+    container_name: proxy
+    image: nginx:stable-alpine
+    depends_on:
+      - backend
+      - frontend
+    volumes:
+      - ./nginx/conf:/etc/nginx/conf.d/:ro
+      - ./nginx/certbot:/var/www/certbot/:ro
+      - ./nginx/letsencrypt:/etc/nginx/ssl/:ro
+    ports:
+      - 80:80
+      - 443:443
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes: 
+      - ./nginx/letsencrypt:/etc/letsencrypt:rw
+      - ./nginx/certbot:/var/www/certbot:rw
+    command: certonly --webroot -w /var/www/certbot --force-renewal --email $EMAIL -d $DOMAIN --agree-tos
