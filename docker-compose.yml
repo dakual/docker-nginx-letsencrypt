@@ -33,4 +33,4 @@ services:
     volumes: 
       - ./nginx/letsencrypt:/etc/letsencrypt:rw
       - ./nginx/certbot:/var/www/certbot:rw
-    command: certonly --webroot -w /var/www/certbot --force-renewal --email $EMAIL -d $DOMAIN --agree-tos
+    command: certonly --reinstall --webroot --agree-tos -w /var/www/certbot --email daghan.altunsoy@gmail.com -d kruta.link
