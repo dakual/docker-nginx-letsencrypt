@@ -5,6 +5,8 @@
 --force-renewal # If a certificate already exists for the requested domains, renew it now, regardless of whether it is near expiry.
 --agree-tos     # Agree to the ACME Subscriber Agreement
 --webroot       # Obtain certificates by placing files in a webroot directory.
+--staging       # Using this option allows you to test your configuration options and avoid possible domain request limits.
+--no-eff-email  # This tells Certbot that you do not wish to share your email with the Electronic Frontier Foundation (EFF).
 ```
 
 Command is trigger to start the renewal process again.
